@@ -29,7 +29,7 @@ namespace PruebaC_sharp_EdgarCardona.models
 
             Console.WriteLine($"{Id,-10}|{Name,-10}|{Birthdate,-12}|{Breed,-12}|{Color,-12}|{WeightInKg,-10}|{BreedingStatus,-15}|{FurLenght,-15}|");
         }
-        
+
         //Metodo para castrar al animal
         public void CastrateAnimal()
         {
@@ -41,5 +41,14 @@ namespace PruebaC_sharp_EdgarCardona.models
         {
             Console.WriteLine($"The cat {Name} is being hairdressed.");
         }
+
+        //Tipos de pelo permitidos para los perros
+        public static readonly List<string> AllowedFurLenghtTYpe = new List<string>
+        {
+            "Sin pelo",
+            "Corto",
+            "Mediano",
+            "Largo"
+        };
     }
 }

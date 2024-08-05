@@ -13,15 +13,15 @@ namespace PruebaC_sharp_EdgarCardona.models
         public static int idCounter = 0;
         public static List<Dog> Dogs = new List<Dog>
         {
-            new Dog(idCounter++, "Buddy", new DateOnly(2010, 1, 1), "Golden Retriever", "Golden", 3.5, true, "Active", "123456789", "Medium", "Short"),
-            new Dog(idCounter++, "Max", new DateOnly(2008, 1, 5), "Bulldog", "White", 4.0, true, "Calm", "987654321", "Short", "Long"),
-            new Dog(idCounter++, "Rex", new DateOnly(2006, 6, 10), "Doberman", "Black", 4.5, false, "Dangerous", "123459876", "Medium", "Short")
+            new Dog(idCounter++, "Buddy", new DateOnly(2010, 1, 1), "Golden Retriever", "Golden", 3.5, true, "Active", "123456789", "Medium", "Largo"),
+            new Dog(idCounter++, "Max", new DateOnly(2008, 1, 5), "Bulldog", "White", 4.0, true, "Calm", "987654321", "Corto", "Long"),
+            new Dog(idCounter++, "Rex", new DateOnly(2006, 6, 10), "Doberman", "Black", 4.5, false, "Dangerous", "123459876", "Medium", "Corto")
         };
         public static List<Cat> Cats = new List<Cat>
         {
             new Cat(idCounter++, "Mia", new DateOnly(2005, 12, 15), "Siamese", "Black", 2.0, false, "Long"),
-            new Cat(idCounter++, "Simba", new DateOnly(2002, 8, 20), "Persian", "White", 1.5, true, "Short"),
-            new Cat(idCounter++, "Luna", new DateOnly(2000, 10, 10), "Maine Coon", "Black", 2.5, false, "Medium")
+            new Cat(idCounter++, "Simba", new DateOnly(2002, 8, 20), "Persian", "White", 1.5, true, "Corto"),
+            new Cat(idCounter++, "Luna", new DateOnly(2000, 10, 10), "Maine Coon", "Black", 2.5, false, "Mediano")
         };
 
         //Constructor sencillo
@@ -131,7 +131,7 @@ namespace PruebaC_sharp_EdgarCardona.models
             bool isBreeding = Console.ReadLine()?.ToLower() == "s";
 
             Console.Write("Temperamento: ");
-            string temperament = Console.ReadLine() ?? "";
+            string temperament = GetValidTemperamentTypeFromUserInput();
 
             Console.Write("Número de microchip: ");
             string microchipNumber = Console.ReadLine() ?? "";
@@ -140,7 +140,7 @@ namespace PruebaC_sharp_EdgarCardona.models
             string barkVolume = Console.ReadLine() ?? "";
 
             Console.Write("Tipo de pelo: ");
-            string coatType = Console.ReadLine() ?? "";
+            string coatType = GetValidCoatTypeFromUserInput();
 
             try
             {
@@ -265,6 +265,47 @@ namespace PruebaC_sharp_EdgarCardona.models
             }
         }
 
+        //Metodo para obtener un tipo de temperamento valido segun permitidos en Dog
+        private static string GetValidTemperamentTypeFromUserInput()
+        {
+            while (true)
+            {
+                Console.WriteLine("Tipos de temperamentos permitidos:");
+                foreach (var temperamentType in Dog.AllowedTemperaments)
+                {
+                    Console.WriteLine($"- {temperamentType}");
+                }
+                Console.Write("Ingrese el tipo de temperamento: ");
+                string type = Console.ReadLine() ?? "";
+                if (Dog.AllowedTemperaments.Contains(type, StringComparer.OrdinalIgnoreCase))
+                {
+                    return type;
+                }
+                Console.WriteLine("Tipo de temperamento no válido. Por favor, elija uno de la lista.");
+            }
+        }
+
+        //Metodo para obtener un tipo de pelo valido segun permitidos en Dog
+        private static string GetValidCoatTypeFromUserInput()
+        {
+            while (true)
+            {
+                Console.WriteLine("Tipos de pelos permitidos:");
+                foreach (var coatType in Dog.AllowedCoatType)
+                {
+                    Console.WriteLine($"- {coatType}");
+                }
+                Console.Write("Ingrese el tipo de pelo permitido: ");
+                string type = Console.ReadLine() ?? "";
+                if (Dog.AllowedCoatType.Contains(type, StringComparer.OrdinalIgnoreCase))
+                {
+                    return type;
+                }
+                Console.WriteLine("Tipo de pelo no válido. Por favor, elija uno de la lista.");
+            }
+        }
+        
+        
         //-----------------------METODOS PARA GATOS --------------------------------
 
         //Metodo para guardar un gato

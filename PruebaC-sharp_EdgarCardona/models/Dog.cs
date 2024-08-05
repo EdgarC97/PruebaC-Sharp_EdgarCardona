@@ -67,5 +67,22 @@ namespace PruebaC_sharp_EdgarCardona.models
         {
             Console.WriteLine($"The dog {Name} is being hairdressed.");
         }
+
+        //Tipos de temperamento para los perros
+        public static readonly List<string> AllowedTemperaments = new List<string>
+        {
+            "Timido",
+            "Normal",
+            "Agresivo"
+        };
+
+        //Tipos de pelo permitidos para los perros
+        public static readonly List<string> AllowedCoatType = new List<string>
+        {
+            "Sin pelo",
+            "Corto",
+            "Mediano",
+            "Largo"
+        };
     }
 }
