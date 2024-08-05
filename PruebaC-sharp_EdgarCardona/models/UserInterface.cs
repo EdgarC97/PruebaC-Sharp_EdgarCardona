@@ -7,9 +7,6 @@ namespace PruebaC_sharp_EdgarCardona.models
 {
     public class UserInterface : VeterinaryClinic
     {
-        // Campo privado que almacena la instancia de la clinica
-        private VeterinaryClinic clinical;
-
 
         // Método principal que ejecuta el menú de la aplicación
         public static void Run()
@@ -83,7 +80,9 @@ namespace PruebaC_sharp_EdgarCardona.models
                 Console.WriteLine("1. Agregar un nuevo perro");
                 Console.WriteLine("2. Actualizar informacion de los perros ");
                 Console.WriteLine("3. Eliminar perros ");
-                Console.WriteLine("4. Regresar al menú principal");
+                Console.WriteLine("4. Motilar perros ");
+                Console.WriteLine("5. Castrar perros ");
+                Console.WriteLine("6. Regresar al menú principal");
                 Console.Write("Seleccione una opción: ");
 
                 if (!int.TryParse(Console.ReadLine(), out int choice))
@@ -105,6 +104,12 @@ namespace PruebaC_sharp_EdgarCardona.models
                         DeleteDog();
                         break;
                     case 4:
+                        DogHairDressFromUserInput();
+                        break;
+                    case 5:
+                        CastrateDogFromUserInput();
+                        break;
+                    case 6:
                         exit = true;
                         break;
                     default:

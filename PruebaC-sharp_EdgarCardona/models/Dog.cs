@@ -56,16 +56,32 @@ namespace PruebaC_sharp_EdgarCardona.models
             Console.WriteLine($"{Id,-10}|{Name,-10}|{Birthdate,-12}|{Breed,-16}|{Color,-12}|{WeightInKg,-10}|{BreedingStatus,-15}|{Temperament,-15}|{MicrochipNumber,-15}|{BarkVolume,-15}|{CoatType,-15}|");
         }
 
-        //Metodo para castrar al animal
-        public void CastrateAnimal()
+        //Metodo para castrar al animal : No se puede castrar si el BreedingStatus es false
+        public void CastrateDog()
         {
-            Console.WriteLine($"The dog {Name} is being castrated.");
+            if (BreedingStatus)
+            {
+                Console.WriteLine($"{Name} ha sido castrado.");
+                BreedingStatus = false;
+            }
+            else
+            {
+                Console.WriteLine($"{Name} no puede ser castrado, debido a que no está en estado reproductivo.");
+            }
         }
 
-        //Metodo para peluqueria
-        public void HairDress()
+        //Metodo para peluqueria : No se puede peluquear a un perro si tiene el pelo corto.
+        public void DogHairDress()
         {
-            Console.WriteLine($"The dog {Name} is being hairdressed.");
+            if (CoatType!= "Corto")
+            {
+                Console.WriteLine($"{Name} ha sido motilado.");
+                CoatType = "Corto";
+            }
+            else
+            {
+                Console.WriteLine($"{Name} tiene el pelo corto, no puede ser motilado.");
+            }
         }
 
         //Tipos de temperamento para los perros

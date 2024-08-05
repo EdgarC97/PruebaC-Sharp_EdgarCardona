@@ -14,14 +14,14 @@ namespace PruebaC_sharp_EdgarCardona.models
         public static List<Dog> Dogs = new List<Dog>
         {
             new Dog(idCounter++, "Buddy", new DateOnly(2010, 1, 1), "Golden Retriever", "Golden", 3.5, true, "Active", "123456789", "Medium", "Largo"),
-            new Dog(idCounter++, "Max", new DateOnly(2008, 1, 5), "Bulldog", "White", 4.0, true, "Calm", "987654321", "Corto", "Long"),
+            new Dog(idCounter++, "Max", new DateOnly(2008, 1, 5), "Bulldog", "White", 4.0, true, "Calm", "987654321", "Corto", "Largo"),
             new Dog(idCounter++, "Rex", new DateOnly(2006, 6, 10), "Doberman", "Black", 4.5, false, "Dangerous", "123459876", "Medium", "Corto")
         };
         public static List<Cat> Cats = new List<Cat>
         {
-            new Cat(idCounter++, "Mia", new DateOnly(2005, 12, 15), "Siamese", "Black", 2.0, false, "Long"),
+            new Cat(idCounter++, "Mia", new DateOnly(2005, 12, 15), "Siamese", "Black", 2.0, false, "Largo"),
             new Cat(idCounter++, "Simba", new DateOnly(2002, 8, 20), "Persian", "White", 1.5, true, "Corto"),
-            new Cat(idCounter++, "Luna", new DateOnly(2000, 10, 10), "Maine Coon", "Black", 2.5, false, "Mediano")
+            new Cat(idCounter++, "Luna", new DateOnly(2000, 10, 10), "Maine Coon", "Black", 2.5, false, "Sin pelo")
         };
 
         //Constructor sencillo
@@ -304,8 +304,55 @@ namespace PruebaC_sharp_EdgarCardona.models
                 Console.WriteLine("Tipo de pelo no válido. Por favor, elija uno de la lista.");
             }
         }
-        
-        
+
+        //Metodo para motilar perros usando el metodo DogHairDress
+        public static void DogHairDressFromUserInput()
+        {
+            Console.Clear();
+            Console.WriteLine("===Motilar perro===");
+            // Buscar al perro por nombre
+            Console.Write("Ingrese nombre del perro a motilar: ");
+            string dogName = Console.ReadLine() ?? "";
+
+            // Buscar el perro en la lista
+            Dog? dog = Dogs.FirstOrDefault(c => c.GetDogName() == dogName);
+
+            if (dog != null)
+            {
+
+                dog.DogHairDress();
+            }
+            else
+            {
+                Console.WriteLine("Perro no encontrado.");
+            }
+
+        }
+
+        //Metodo para castrar al perro
+        public static void CastrateDogFromUserInput()
+        {
+            Console.Clear();
+            Console.WriteLine("===Castrar al perro===");
+            // Buscar al perro por nombre
+            Console.Write("Ingrese nombre del perro a castrar: ");
+            string dogName = Console.ReadLine() ?? "";
+
+            // Buscar el perro en la lista
+            Dog? dog = Dogs.FirstOrDefault(c => c.GetDogName() == dogName);
+
+            if (dog != null)
+            {
+
+                dog.CastrateDog();
+            }
+            else
+            {
+                Console.WriteLine("Perro no encontrado.");
+            }
+
+        }
+
         //-----------------------METODOS PARA GATOS --------------------------------
 
         //Metodo para guardar un gato
