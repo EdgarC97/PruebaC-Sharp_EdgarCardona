@@ -5,19 +5,14 @@ using System.Threading.Tasks;
 
 namespace PruebaC_sharp_EdgarCardona.models
 {
-    public class UserInterface
+    public class UserInterface : VeterinaryClinic
     {
         // Campo privado que almacena la instancia de la clinica
         private VeterinaryClinic clinical;
 
-        // Constructor que inicializa el campo clinic con la instancia proporcionada
-        public UserInterface(VeterinaryClinic veterinaryClinical)
-        {
-            clinical = veterinaryClinical;
-        }
 
         // Método principal que ejecuta el menú de la aplicación
-        public void Run()
+        public static void Run()
         {
             bool exit = false; // Bandera para controlar la salida del bucle principal
             while (!exit)
@@ -28,7 +23,10 @@ namespace PruebaC_sharp_EdgarCardona.models
                 Console.WriteLine("=== Sistema de Centro Veterinario ===");
                 Console.WriteLine("1. Gestión de Perros");
                 Console.WriteLine("2. Gestión de Gatos");
-                Console.WriteLine("3. Salir");
+                Console.WriteLine("3. Mostrar todos los animales");
+                Console.WriteLine("4. Mostrar animales por tipo");
+                Console.WriteLine("5. Mostrar animales por id");
+                Console.WriteLine("6. Salir");
                 Console.Write("Seleccione una opción: ");
 
                 // Leo la opción ingresada por el usuario y valida que sea un número
@@ -48,8 +46,17 @@ namespace PruebaC_sharp_EdgarCardona.models
                         ManageCats();
                         break;
                     case 3:
+                        ShowAllPatients();
+                        break;
+                    // case 4:
+                    //     ShowAllPatientsByType();
+                    //     break;
+                    case 5:
+                        ShowPatientById();
+                        break;
+                    case 6:
                         exit = true; // Salir del bucle principal
-                        Console.WriteLine("Gracias por usar el Sistema de Transporte de Riwi. ¡Hasta luego!");
+                        Console.WriteLine("Gracias por usar el Sistema de clinica veterinaria. ¡Hasta luego!");
                         break;
                     default:
                         Console.WriteLine("Opción no válida. Por favor, intente de nuevo.");
@@ -66,18 +73,17 @@ namespace PruebaC_sharp_EdgarCardona.models
         }
 
         //Metodo para gestionar los clientes
-        private void ManageDogs()
+        private static void ManageDogs()
         {
             bool exit = false;
             while (!exit)
             {
                 Console.Clear();
                 Console.WriteLine("=== Gestión de Perros ===");
-                Console.WriteLine("1. Agregar informacion de los perros");
-                Console.WriteLine("2. Mostrar informacion de los perros");
-                Console.WriteLine("3. Actualizar informacion de los perros ");
-                Console.WriteLine("4. Eliminar perros ");
-                Console.WriteLine("5. Regresar al menú principal");
+                Console.WriteLine("1. Agregar un nuevo perro");
+                Console.WriteLine("2. Actualizar informacion de los perros ");
+                Console.WriteLine("3. Eliminar perros ");
+                Console.WriteLine("4. Regresar al menú principal");
                 Console.Write("Seleccione una opción: ");
 
                 if (!int.TryParse(Console.ReadLine(), out int choice))
@@ -90,18 +96,15 @@ namespace PruebaC_sharp_EdgarCardona.models
                 switch (choice)
                 {
                     case 1:
-                        ManagerApp.CreateDog();
+                        AddDogFromUserInput();
                         break;
                     case 2:
-                        clinical.ShowPatient();
+                        UpdateDog();
                         break;
                     case 3:
-                        clinical.UpdateDog();
+                        DeleteDog();
                         break;
                     case 4:
-                        clinical.DeleteDog();
-                        break;
-                    case 5:
                         exit = true;
                         break;
                     default:
@@ -118,7 +121,7 @@ namespace PruebaC_sharp_EdgarCardona.models
         }
 
         //Metodos para gestionar los conductores
-        private void ManageCats()
+        private static void ManageCats()
         {
             bool exit = false;
             while (!exit)
@@ -145,13 +148,13 @@ namespace PruebaC_sharp_EdgarCardona.models
                         ManagerApp.CreateCat();
                         break;
                     case 2:
-                        clinical.ShowPatient();
+                        //     clinical.ShowCats();
                         break;
                     case 3:
-                        clinical.UpdateCat();
-                        break;
-                    case 4:
-                        clinical.DeleteCat();
+                        //     clinical.UpdateCat();
+                        //     break;
+                        // case 4:
+                        //     clinical.DeleteCat();
                         break;
                     case 5:
                         exit = true;

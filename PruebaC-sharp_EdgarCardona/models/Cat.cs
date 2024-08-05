@@ -17,11 +17,17 @@ namespace PruebaC_sharp_EdgarCardona.models
             FurLenght = furLenght;
         }
 
+        //Obtener el id del gato
+        public int GetCatId()
+        {
+            return Id;
+        }
+
         //Metodo sobreescrito para mostrar la informacion del animal
         public override void ShowInfo()
         {
 
-            Console.WriteLine($"{Id,-10}|{Name,-10}|{Birthdate,-12}|{Breed,-12}|{Color,-12}|{WeightInKg,-10}|{BreedingStatus,-12}|{FurLenght,-20}|");
+            Console.WriteLine($"{Id,-10}|{Name,-10}|{Birthdate,-12}|{Breed,-12}|{Color,-12}|{WeightInKg,-10}|{BreedingStatus,-15}|{FurLenght,-15}|");
         }
         
         //Metodo para castrar al animal
