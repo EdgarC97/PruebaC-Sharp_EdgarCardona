@@ -1,0 +1,172 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace PruebaC_sharp_EdgarCardona.models
+{
+    public class UserInterface
+    {
+        // Campo privado que almacena la instancia de la clinica
+        private VeterinaryClinic clinical;
+
+        // Constructor que inicializa el campo clinic con la instancia proporcionada
+        public UserInterface(VeterinaryClinic veterinaryClinical)
+        {
+            clinical = veterinaryClinical;
+        }
+
+        // Método principal que ejecuta el menú de la aplicación
+        public void Run()
+        {
+            bool exit = false; // Bandera para controlar la salida del bucle principal
+            while (!exit)
+            {
+                // Limpio la consola para una presentación más limpia del menú
+                Console.Clear();
+                // Muestro el menú de opciones al usuario
+                Console.WriteLine("=== Sistema de Centro Veterinario ===");
+                Console.WriteLine("1. Gestión de Perros");
+                Console.WriteLine("2. Gestión de Gatos");
+                Console.WriteLine("3. Salir");
+                Console.Write("Seleccione una opción: ");
+
+                // Leo la opción ingresada por el usuario y valida que sea un número
+                if (!int.TryParse(Console.ReadLine(), out int choice))
+                {
+                    Console.WriteLine("Por favor, ingrese un número válido.");
+                    Console.ReadKey();
+                    continue;
+                }
+
+                switch (choice)
+                {
+                    case 1:
+                        ManageDogs();
+                        break;
+                    case 2:
+                        ManageCats();
+                        break;
+                    case 3:
+                        exit = true; // Salir del bucle principal
+                        Console.WriteLine("Gracias por usar el Sistema de Transporte de Riwi. ¡Hasta luego!");
+                        break;
+                    default:
+                        Console.WriteLine("Opción no válida. Por favor, intente de nuevo.");
+                        break;
+                }
+
+                if (!exit)
+                {
+                    // Solicito al usuario que presione una tecla para continuar si no se ha salido
+                    Console.WriteLine("\nPresione cualquier tecla para continuar...");
+                    Console.ReadKey();
+                }
+            }
+        }
+
+        //Metodo para gestionar los clientes
+        private void ManageDogs()
+        {
+            bool exit = false;
+            while (!exit)
+            {
+                Console.Clear();
+                Console.WriteLine("=== Gestión de Perros ===");
+                Console.WriteLine("1. Agregar informacion de los perros");
+                Console.WriteLine("2. Mostrar informacion de los perros");
+                Console.WriteLine("3. Actualizar informacion de los perros ");
+                Console.WriteLine("4. Eliminar perros ");
+                Console.WriteLine("5. Regresar al menú principal");
+                Console.Write("Seleccione una opción: ");
+
+                if (!int.TryParse(Console.ReadLine(), out int choice))
+                {
+                    Console.WriteLine("Por favor, ingrese un número válido.");
+                    Console.ReadKey();
+                    continue;
+                }
+
+                switch (choice)
+                {
+                    case 1:
+                        ManagerApp.CreateDog();
+                        break;
+                    case 2:
+                        clinical.ShowPatient();
+                        break;
+                    case 3:
+                        clinical.UpdateDog();
+                        break;
+                    case 4:
+                        clinical.DeleteDog();
+                        break;
+                    case 5:
+                        exit = true;
+                        break;
+                    default:
+                        Console.WriteLine("Opción no válida. Por favor, intente de nuevo.");
+                        break;
+                }
+
+                if (!exit)
+                {
+                    Console.WriteLine("\nPresione cualquier tecla para continuar...");
+                    Console.ReadKey();
+                }
+            }
+        }
+
+        //Metodos para gestionar los conductores
+        private void ManageCats()
+        {
+            bool exit = false;
+            while (!exit)
+            {
+                Console.Clear();
+                Console.WriteLine("=== Gestión de Gatos ===");
+                Console.WriteLine("1. Agregar informacion de los gatos");
+                Console.WriteLine("2. Mostrar informacion de los gatos");
+                Console.WriteLine("3. Actualizar informacion de los gatos ");
+                Console.WriteLine("4. Eliminar gatos ");
+                Console.WriteLine("5. Regresar al menú principal");
+                Console.Write("Seleccione una opción: ");
+
+                if (!int.TryParse(Console.ReadLine(), out int choice))
+                {
+                    Console.WriteLine("Por favor, ingrese un número válido.");
+                    Console.ReadKey();
+                    continue;
+                }
+
+                switch (choice)
+                {
+                    case 1:
+                        ManagerApp.CreateCat();
+                        break;
+                    case 2:
+                        clinical.ShowPatient();
+                        break;
+                    case 3:
+                        clinical.UpdateCat();
+                        break;
+                    case 4:
+                        clinical.DeleteCat();
+                        break;
+                    case 5:
+                        exit = true;
+                        break;
+                    default:
+                        Console.WriteLine("Opción no válida. Por favor, intente de nuevo.");
+                        break;
+                }
+
+                if (!exit)
+                {
+                    Console.WriteLine("\nPresione cualquier tecla para continuar...");
+                    Console.ReadKey();
+                }
+            }
+        }
+    }
+}

@@ -53,7 +53,7 @@ namespace PruebaC_sharp_EdgarCardona.models
         }
 
         //Metodo para eliminar un perro
-        public void DeleteDog(int id)
+        public void DeleteDog()
         {
             Dogs.RemoveAll(dog => dog.Id == id);
         }
