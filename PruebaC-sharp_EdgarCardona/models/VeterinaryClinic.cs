@@ -56,7 +56,7 @@ namespace PruebaC_sharp_EdgarCardona.models
 
             // Mostrar los perros actuales
             Console.WriteLine($"{"Id",-10}|{"Nombre",-10}|{"Fecha Nac.",-12}|{"Raza",-16}|{"Color",-12}|{"Peso (Kg)",-10}|{"Reproductivo?",-15}|{"Temperamento",-15}|{"Num Microchip",-15}|{"Vol. de pelo",-15}|{"Tipo de pelo",-15}|");
-            Console.WriteLine(new string('-', 156));
+            ManagerApp.ShowSeparator();
             foreach (var dogg in Dogs)
             {
                 dogg.ShowInfo();
@@ -609,15 +609,15 @@ namespace PruebaC_sharp_EdgarCardona.models
             Console.Clear();
             //Mostrar todos los perros
             Console.WriteLine("\n===Dogs===\n");
-            Console.WriteLine(new string('-', 156));
+            ManagerApp.ShowSeparator();
             Console.WriteLine($"{"Id",-10}|{"Nombre",-10}|{"Fecha Nac.",-12}|{"Raza",-16}|{"Color",-12}|{"Peso (Kg)",-10}|{"Reproductivo?",-15}|{"Temperamento",-15}|{"Num Microchip",-15}|{"Vol. de pelo",-15}|{"Tipo de pelo",-15}|");
-            Console.WriteLine(new string('-', 156));
+            ManagerApp.ShowSeparator();
 
             foreach (var dog in Dogs)
             {
                 dog.ShowInfo();
             }
-            Console.WriteLine(new string('-', 156));
+            ManagerApp.ShowSeparator();
 
             //Mostrar todos los gatos
             Console.WriteLine("\n===Cats===\n");
@@ -676,13 +676,13 @@ namespace PruebaC_sharp_EdgarCardona.models
             {
                 Console.WriteLine("\n===Dog===\n");
                 Console.WriteLine($"{"Id",-10}|{"Nombre",-10}|{"Fecha Nac.",-12}|{"Raza",-16}|{"Color",-12}|{"Peso (Kg)",-10}|{"Reproductivo?",-15}|{"Temperamento",-15}|{"Num Microchip",-15}|{"Vol. de pelo",-15}|{"Tipo de pelo",-15}|");
-                Console.WriteLine(new string('-', 156));
+                ManagerApp.ShowSeparator();
 
                 foreach (var dogg in Dogs)
                 {
                     dogg.ShowInfo();
                 }
-                Console.WriteLine(new string('-', 156));
+                ManagerApp.ShowSeparator();
             }
             else if (cat != null)
             {

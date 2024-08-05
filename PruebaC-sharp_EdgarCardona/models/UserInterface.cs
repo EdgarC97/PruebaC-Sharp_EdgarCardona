@@ -17,14 +17,14 @@ namespace PruebaC_sharp_EdgarCardona.models
                 // Limpio la consola para una presentación más limpia del menú
                 Console.Clear();
                 // Muestro el menú de opciones al usuario
-                Console.WriteLine("=== Sistema de Centro Veterinario ===");
+                ManagerApp.ShowHeader();
                 Console.WriteLine("1. Gestión de Perros");
                 Console.WriteLine("2. Gestión de Gatos");
                 Console.WriteLine("3. Mostrar todos los animales");
                 Console.WriteLine("4. Mostrar animales por tipo");
                 Console.WriteLine("5. Mostrar animales por id");
                 Console.WriteLine("6. Salir");
-                Console.Write("Seleccione una opción: ");
+                Console.Write("\nSeleccione una opción: ");
 
                 // Leo la opción ingresada por el usuario y valida que sea un número
                 if (!int.TryParse(Console.ReadLine(), out int choice))
@@ -53,7 +53,7 @@ namespace PruebaC_sharp_EdgarCardona.models
                         break;
                     case 6:
                         exit = true; // Salir del bucle principal
-                        Console.WriteLine("Gracias por usar el Sistema de clinica veterinaria. ¡Hasta luego!");
+                        ManagerApp.ShowFooter();
                         break;
                     default:
                         Console.WriteLine("Opción no válida. Por favor, intente de nuevo.");
