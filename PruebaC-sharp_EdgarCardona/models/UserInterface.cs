@@ -133,11 +133,12 @@ namespace PruebaC_sharp_EdgarCardona.models
             {
                 Console.Clear();
                 Console.WriteLine("=== Gestión de Gatos ===");
-                Console.WriteLine("1. Agregar informacion de los gatos");
-                Console.WriteLine("2. Mostrar informacion de los gatos");
-                Console.WriteLine("3. Actualizar informacion de los gatos ");
-                Console.WriteLine("4. Eliminar gatos ");
-                Console.WriteLine("5. Regresar al menú principal");
+                Console.WriteLine("1. Agregar un nuevo gato");
+                Console.WriteLine("2. Actualizar informacion de los gatos ");
+                Console.WriteLine("3. Eliminar gatos ");
+                Console.WriteLine("4. Motilar gatos ");
+                Console.WriteLine("5. Castrar gatos ");
+                Console.WriteLine("6. Regresar al menú principal");
                 Console.Write("Seleccione una opción: ");
 
                 if (!int.TryParse(Console.ReadLine(), out int choice))
@@ -150,18 +151,21 @@ namespace PruebaC_sharp_EdgarCardona.models
                 switch (choice)
                 {
                     case 1:
-                        ManagerApp.CreateCat();
+                        AddCatFromUserInput();
                         break;
                     case 2:
-                        //     clinical.ShowCats();
+                        UpdateCat();
                         break;
                     case 3:
-                        //     clinical.UpdateCat();
-                        //     break;
-                        // case 4:
-                        //     clinical.DeleteCat();
+                        DeleteCat();
+                        break;
+                    case 4:
+                        CatHairDressFromUserInput();
                         break;
                     case 5:
+                        CastrateCatFromUserInput();
+                        break;
+                    case 6:
                         exit = true;
                         break;
                     default:

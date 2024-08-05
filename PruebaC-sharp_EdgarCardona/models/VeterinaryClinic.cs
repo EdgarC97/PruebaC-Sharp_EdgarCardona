@@ -13,15 +13,15 @@ namespace PruebaC_sharp_EdgarCardona.models
         public static int idCounter = 0;
         public static List<Dog> Dogs = new List<Dog>
         {
-            new Dog(idCounter++, "Buddy", new DateOnly(2010, 1, 1), "Golden Retriever", "Golden", 3.5, true, "Active", "123456789", "Medium", "Largo"),
-            new Dog(idCounter++, "Max", new DateOnly(2008, 1, 5), "Bulldog", "White", 4.0, true, "Calm", "987654321", "Corto", "Largo"),
-            new Dog(idCounter++, "Rex", new DateOnly(2006, 6, 10), "Doberman", "Black", 4.5, false, "Dangerous", "123459876", "Medium", "Corto")
+            new Dog(idCounter++, "Buddy", new DateOnly(2010, 1, 1), "Golden Retriever", "Golden", 3.5, true, "agresivo", "123456789", "Medium", "largo"),
+            new Dog(idCounter++, "Max", new DateOnly(2008, 1, 5), "Bulldog", "White", 4.0, true, "timido", "987654321", "corto", "Largo"),
+            new Dog(idCounter++, "Rex", new DateOnly(2006, 6, 10), "Doberman", "Black", 4.5, false, "normal", "123459876", "Medium", "corto")
         };
         public static List<Cat> Cats = new List<Cat>
         {
-            new Cat(idCounter++, "Mia", new DateOnly(2005, 12, 15), "Siamese", "Black", 2.0, false, "Largo"),
-            new Cat(idCounter++, "Simba", new DateOnly(2002, 8, 20), "Persian", "White", 1.5, true, "Corto"),
-            new Cat(idCounter++, "Luna", new DateOnly(2000, 10, 10), "Maine Coon", "Black", 2.5, false, "Sin pelo")
+            new Cat(idCounter++, "Mia", new DateOnly(2005, 12, 15), "Siamese", "Black", 2.0, false, "largo"),
+            new Cat(idCounter++, "Simba", new DateOnly(2002, 8, 20), "Persian", "White", 1.5, true, "corto"),
+            new Cat(idCounter++, "Luna", new DateOnly(2000, 10, 10), "Maine Coon", "Black", 2.5, false, "sin pelo")
         };
 
         //Constructor sencillo
@@ -170,10 +170,6 @@ namespace PruebaC_sharp_EdgarCardona.models
                 Console.WriteLine("ID inválido. Por favor, ingrese un número.");
                 return;
             }
-            //Informarle al usuario que el perro fue encontrado
-
-
-
             // Buscar el perro en la lista
             Dog? dog = Dogs.FirstOrDefault(c => c.GetDogId() == dogId);
 
@@ -361,17 +357,251 @@ namespace PruebaC_sharp_EdgarCardona.models
             Cats.Add(newCat);
         }
 
-        //Metodo para actualizar un gato
-        public static void AddCat(Cat cat)
+        //Metodo para agregar un gato a la lista de gatos de acuerdo al input del usuario.
+        public static void AddCatFromUserInput()
         {
-            Cats.Add(cat);
+            Console.Clear();
+            Console.WriteLine("\n=== Agregar gato ===");
+
+            //Asignamos el id con el contador 
+            int newCatId = idCounter++;
+
+            // Solicitar información del gato
+            Console.Write("Nombre: ");
+            string name = Console.ReadLine() ?? "";
+
+            Console.Write("Fecha de Nacimiento (aaaa-mm-dd): ");
+            DateOnly birthdate = DateOnly.Parse(Console.ReadLine() ?? "");
+
+            Console.Write("Raza: ");
+            string breed = Console.ReadLine() ?? "";
+
+            Console.Write("Color: ");
+            string color = Console.ReadLine() ?? "";
+
+            Console.Write("Peso (kg): ");
+            double weight = double.Parse(Console.ReadLine() ?? "0");
+
+            Console.Write("Es reproductor? (s/n): ");
+            bool isBreeding = Console.ReadLine()?.ToLower() == "s";
+
+            Console.Write("Tipo de pelo: ");
+            string furLenght = GetValidFurLenghtFromUserInput();
+
+            try
+            {
+                // Crear un nuevo gato con los datos proporcionados
+                Cat newCat = new Cat(newCatId, name, birthdate, breed, color, weight, isBreeding, furLenght);
+
+                // Agregar el gato a la lista
+                Cats.Add(newCat);
+                Console.WriteLine("\nGato agregado exitosamente.");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error al agregar el gato: {ex.Message}");
+            }
+        }
+
+        //Metodo para actualizar la informacion de los gatos
+        public static void UpdateCat()
+        {
+            Console.Clear();
+            Console.WriteLine("\n=== Editar Gato ===");
+
+            // Buscar al gato por identificación
+            Console.Write("Ingrese el id del gato a editar: ");
+            if (!int.TryParse(Console.ReadLine(), out int catId))
+            {
+                Console.WriteLine("ID inválido. Por favor, ingrese un número.");
+                return;
+            }
+            // Buscar el gato en la lista
+            Cat? cat = Cats.FirstOrDefault(c => c.GetCatId() == catId);
+
+            if (cat != null)
+            {
+                Console.WriteLine($"\nGato encontrado: {cat.GetCatName()}");
+
+                // Solicitar nuevos detalles al usuario
+
+                //Asignamos el id con el contador 
+                int newCatId = idCounter++;
+
+                //Nombre
+                Console.Write("Ingrese el nuevo nombre (deje en blanco para mantener el actual): ");
+                string newName = Console.ReadLine() ?? "";
+                if (!string.IsNullOrEmpty(newName))
+                {
+                    cat.SetName(newName);
+                }
+                //Birthdate
+                Console.Write("Ingrese la nueva fecha de nacimiento (aaaa-mm-dd) (deje en blanco para mantener el actual): ");
+                string newBirthdate = Console.ReadLine() ?? "";
+                if (!string.IsNullOrEmpty(newBirthdate))
+                {
+                    cat.SetBirthdate(DateOnly.Parse(newBirthdate));
+                }
+                //Breed
+                Console.Write("Ingrese la nueva raza (deje en blanco para mantener el actual): ");
+                string newBreed = Console.ReadLine() ?? "";
+                if (!string.IsNullOrEmpty(newBreed))
+                {
+                    cat.SetBreed(newBreed);
+                }
+                //Color
+                Console.Write("Ingrese el nuevo color (deje en blanco para mantener el actual): ");
+                string newColor = Console.ReadLine() ?? "";
+                if (!string.IsNullOrEmpty(newColor))
+                {
+                    cat.SetColor(newColor);
+                }
+                //Weight
+                Console.Write("Ingrese el nuevo peso (kg) (deje en blanco para mantener el actual): ");
+                string newWeight = Console.ReadLine() ?? "";
+                if (!string.IsNullOrEmpty(newWeight))
+                {
+                    cat.SetWeightInKg(double.Parse(newWeight));
+                }
+                //IsBreeding
+                Console.Write("¿Es reproductor? (s/n) (deje en blanco para mantener el actual): ");
+                string newIsBreeding = Console.ReadLine()?.ToLower() ?? "";
+                if (!string.IsNullOrEmpty(newIsBreeding))
+                {
+                    cat.SetBreedingStatus(newIsBreeding == "s");
+                }
+                //FurLenght
+                Console.Write("Ingrese el nuevo tipo de pelo (deje en blanco para mantener el actual): ");
+                string newFurLenght = Console.ReadLine() ?? "";
+                if (!string.IsNullOrEmpty(newFurLenght))
+                {
+                    cat.SetFurLenght(newFurLenght);
+                }
+
+                Console.WriteLine("\nGato actualizado exitosamente.");
+            }
+            else
+            {
+                Console.WriteLine("Gato no encontrado.");
+            }
         }
 
         //Metodo para eliminar un gato
-        public static void DeleteCat(int id)
+        public static void DeleteCat()
         {
-            Cats.RemoveAll(cat => cat.GetCatId() == id);
+            Console.Clear();
+            Console.WriteLine("===Eliminar gato===");
+
+            //Mostrar todos los gatos
+            Console.WriteLine("\n===Cats===\n");
+            Console.WriteLine(new string('-', 104));
+            Console.WriteLine($"{"Id",-10}|{"Nombre",-10}|{"Fecha Nac.",-12}|{"Raza",-12}|{"Color",-12}|{"Peso (Kg)",-10}|{"Reproductivo?",-15}|{"Largo de pelo",-15}|");
+            Console.WriteLine(new string('-', 104));
+            foreach (var catt in Cats)
+            {
+                catt.ShowInfo();
+            }
+            Console.WriteLine(new string('-', 104));
+
+            // Buscar al gato por nombre
+            Console.Write("Ingrese nombre del gato a eliminar: ");
+            string catName = Console.ReadLine() ?? "";
+
+            // Buscar el gato en la lista
+            Cat? cat = Cats.FirstOrDefault(c => c.GetCatName() == catName);
+
+            if (cat != null)
+            {
+                // Solicitar confirmación al usuario
+                Console.Write("¿Está seguro de que desea eliminar este gato? (s/n): ");
+                string confirmation = Console.ReadLine()?.Trim().ToLower() ?? "";
+
+                if (confirmation == "s" || confirmation == "si")
+                {
+                    // Eliminar el gato de la lista
+                    Cats.Remove(cat);
+                    Console.WriteLine("Gato eliminado exitosamente.");
+                }
+                else
+                {
+                    Console.WriteLine("Eliminación cancelada.");
+                }
+            }
+            else
+            {
+                Console.WriteLine("Gato no encontrado.");
+            }
         }
+
+        //Metodo para obtener un tipo de pelo valido segun permitidos en Cat
+        private static string GetValidFurLenghtFromUserInput()
+        {
+            while (true)
+            {
+                Console.WriteLine("Tipos de pelos permitidos:");
+                foreach (var furLenght in Cat.AllowedFurLenghtTYpe)
+                {
+                    Console.WriteLine($"- {furLenght}");
+                }
+                Console.Write("Ingrese el tipo de pelo permitido: ");
+                string type = Console.ReadLine() ?? "";
+                if (Cat.AllowedFurLenghtTYpe.Contains(type, StringComparer.OrdinalIgnoreCase))
+                {
+                    return type;
+                }
+                Console.WriteLine("Tipo de pelo no válido. Por favor, elija uno de la lista.");
+            }
+        }
+
+        //Metodo para motilar gatos usando el metodo CatHairDress
+        public static void CatHairDressFromUserInput()
+        {
+            Console.Clear();
+            Console.WriteLine("===Motilar gato===");
+            // Buscar al gato por nombre
+            Console.Write("Ingrese nombre del gato a motilar: ");
+            string catName = Console.ReadLine() ?? "";
+
+            // Buscar el gato en la lista
+            Cat? cat = Cats.FirstOrDefault(c => c.GetCatName() == catName);
+
+            if (cat != null)
+            {
+
+                cat.CatHairDress();
+            }
+            else
+            {
+                Console.WriteLine("Gato no encontrado.");
+            }
+
+        }
+
+        //Metodo para castrar al gato
+        public static void CastrateCatFromUserInput()
+        {
+            Console.Clear();
+            Console.WriteLine("===Castrar al gato===");
+            // Buscar al gato por nombre
+            Console.Write("Ingrese nombre del gato a castrar: ");
+            string catName = Console.ReadLine() ?? "";
+
+            // Buscar el gato en la lista
+            Cat? cat = Cats.FirstOrDefault(c => c.GetCatName() == catName);
+
+            if (cat != null)
+            {
+
+                cat.CastrateCat();
+            }
+            else
+            {
+                Console.WriteLine("Perro no encontrado.");
+            }
+
+        }
+
+        //-----------------------METODOS PARA MOSTRAR PACIENTES --------------------------------
 
         //Metodo para mostrar todos los pacientes
         public static void ShowAllPatients()

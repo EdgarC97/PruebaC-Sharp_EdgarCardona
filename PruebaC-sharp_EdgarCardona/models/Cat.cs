@@ -17,10 +17,24 @@ namespace PruebaC_sharp_EdgarCardona.models
             FurLenght = furLenght;
         }
 
+        // Métodos públicos para actualizar los atributos
+        public void SetName(string name) => Name = name;
+        public void SetBirthdate(DateOnly birthdate) => Birthdate = birthdate;
+        public void SetBreed(string breed) => Breed = breed;
+        public void SetColor(string color) => Color = color;
+        public void SetWeightInKg(double weightInKg) => WeightInKg = weightInKg;
+        public void SetBreedingStatus(bool breedingStatus) => BreedingStatus = breedingStatus;
+        public void SetFurLenght(string furLenght) => FurLenght = furLenght;
+
         //Obtener el id del gato
         public int GetCatId()
         {
             return Id;
+        }
+        //Obtener el nombre del gato
+        public string? GetCatName()
+        {
+            return Name;
         }
 
         //Metodo sobreescrito para mostrar la informacion del animal
@@ -30,25 +44,41 @@ namespace PruebaC_sharp_EdgarCardona.models
             Console.WriteLine($"{Id,-10}|{Name,-10}|{Birthdate,-12}|{Breed,-12}|{Color,-12}|{WeightInKg,-10}|{BreedingStatus,-15}|{FurLenght,-15}|");
         }
 
-        //Metodo para castrar al animal
-        public void CastrateAnimal()
+        //Metodo para castrar al gato : No se puede castrar si el BreedingStatus es false
+        public void CastrateCat()
         {
-            Console.WriteLine($"The cat {Name} is being castrated.");
+            if (BreedingStatus)
+            {
+                Console.WriteLine($"{Name} ha sido castrado.");
+                BreedingStatus = false;
+            }
+            else
+            {
+                Console.WriteLine($"{Name} no puede ser castrado, debido a que no está en estado reproductivo.");
+            }
         }
 
-        //Metodo para peluqueria
-        public void HairDress()
+        //Metodo para peluqueria : No se puede peluquear a un gato si el FurLenght es corto.
+        public void CatHairDress()
         {
-            Console.WriteLine($"The cat {Name} is being hairdressed.");
+            if (FurLenght != "sin pelo")
+            {
+                Console.WriteLine($"{Name} ha sido motilado.");
+                FurLenght = "sin pelo";
+            }
+            else
+            {
+                Console.WriteLine($"{Name} no tiene pelo, no puede ser motilado.");
+            }
         }
 
-        //Tipos de pelo permitidos para los perros
+        //Tipos de pelo permitidos para los gatos
         public static readonly List<string> AllowedFurLenghtTYpe = new List<string>
         {
-            "Sin pelo",
-            "Corto",
-            "Mediano",
-            "Largo"
+            "sin pelo",
+            "corto",
+            "mediano",
+            "largo"
         };
     }
 }

@@ -56,7 +56,7 @@ namespace PruebaC_sharp_EdgarCardona.models
             Console.WriteLine($"{Id,-10}|{Name,-10}|{Birthdate,-12}|{Breed,-16}|{Color,-12}|{WeightInKg,-10}|{BreedingStatus,-15}|{Temperament,-15}|{MicrochipNumber,-15}|{BarkVolume,-15}|{CoatType,-15}|");
         }
 
-        //Metodo para castrar al animal : No se puede castrar si el BreedingStatus es false
+        //Metodo para castrar al perro : No se puede castrar si el BreedingStatus es false
         public void CastrateDog()
         {
             if (BreedingStatus)
@@ -70,7 +70,7 @@ namespace PruebaC_sharp_EdgarCardona.models
             }
         }
 
-        //Metodo para peluqueria : No se puede peluquear a un perro si tiene el pelo corto.
+        //Metodo para peluqueria : No se puede peluquear a un perro si el CoatType es corto.
         public void DogHairDress()
         {
             if (CoatType!= "Corto")
@@ -87,18 +87,18 @@ namespace PruebaC_sharp_EdgarCardona.models
         //Tipos de temperamento para los perros
         public static readonly List<string> AllowedTemperaments = new List<string>
         {
-            "Timido",
-            "Normal",
-            "Agresivo"
+            "timido",
+            "normal",
+            "agresivo"
         };
 
         //Tipos de pelo permitidos para los perros
         public static readonly List<string> AllowedCoatType = new List<string>
         {
-            "Sin pelo",
-            "Corto",
-            "Mediano",
-            "Largo"
+            "sin pelo",
+            "corto",
+            "mediano",
+            "largo"
         };
     }
 }
