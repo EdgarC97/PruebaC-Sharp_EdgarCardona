@@ -37,6 +37,14 @@ namespace PruebaC_sharp_EdgarCardona.models
         public void SetBarkVolume(string barkVolume) => BarkVolume = barkVolume;
         public void SetCoatType(string coatType) => CoatType = coatType;
 
+        //Métodos adicionales para el perro
+
+        //Calcular la edad del perro en meses
+        public override int GetAge()
+        {
+            return base.GetAge();
+        }
+
 
         //Obtener el id del perro
         public int GetDogId()

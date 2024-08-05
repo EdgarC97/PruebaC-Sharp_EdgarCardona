@@ -45,12 +45,10 @@ namespace PruebaC_sharp_EdgarCardona.models
             return (DateTime.Now.Year - Birthdate.Year) * 12 + DateTime.Now.Month - Birthdate.Month;
         }
         //Metodo para obtener la edad calculada
-        public int GetAge()
+        public virtual int GetAge()
         {
             return CalculateAgeInMonths();
         }
-
-
 
     }
 }

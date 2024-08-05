@@ -7,13 +7,13 @@ namespace PruebaC_sharp_EdgarCardona.models
 {
     public class VeterinaryClinic
     {
-        public string? Name { get; set; }
-        public string? Address { get; set; }
+        public static string? Name = "Clinica Riwi";
+        public static string? Address = "Cl. 16 #55-129, Guayabal, Medellín, Guayabal, Medellín, Antioquia";
 
         public static int idCounter = 0;
         public static List<Dog> Dogs = new List<Dog>
         {
-            new Dog(idCounter++, "Buddy", new DateOnly(2010, 1, 1), "Golden Retriever", "Golden", 3.5, true, "agresivo", "123456789", "Medium", "largo"),
+            new Dog(idCounter++, "Buddy", new DateOnly(2024, 1, 1), "Golden Retriever", "Golden", 3.5, true, "agresivo", "123456789", "Medium", "largo"),
             new Dog(idCounter++, "Max", new DateOnly(2008, 1, 5), "Bulldog", "White", 4.0, true, "timido", "987654321", "corto", "Largo"),
             new Dog(idCounter++, "Rex", new DateOnly(2006, 6, 10), "Doberman", "Black", 4.5, false, "normal", "123459876", "Medium", "corto")
         };
@@ -38,6 +38,30 @@ namespace PruebaC_sharp_EdgarCardona.models
             Address = address;
             Dogs = new List<Dog>();
             Cats = new List<Cat>();
+        }
+
+        //Mostrar informacion de la clinica usando el constructor completo
+        public static void ClinicBasicReview()
+        {
+            Console.Clear();
+            Console.WriteLine($"\nNombre: {Name}\nDirección: {Address}\n");
+            //Lista de perros de la clinica
+            Console.WriteLine("\n=== Perros ===\n");
+            Console.WriteLine($"{"Id",-10}|{"Nombre",-10}|{"Fecha Nac.",-12}|{"Raza",-16}|{"Color",-12}|{"Peso (Kg)",-10}|{"Reproductivo?",-15}|{"Temperamento",-15}|{"Num Microchip",-15}|{"Vol. de pelo",-15}|{"Tipo de pelo",-15}|");
+            ManagerApp.ShowSeparator();
+            foreach (var dogg in Dogs)
+            {
+                dogg.ShowInfo();
+            }
+
+            // Lista de gatos de la clinica
+            Console.WriteLine("\n=== Gatos ===\n");
+            Console.WriteLine($"{"Id",-10}|{"Nombre",-10}|{"Fecha Nac.",-12}|{"Raza",-16}|{"Color",-12}|{"Peso (Kg)",-10}|{"Reproductivo?",-15}|{"Temperamento",-15}|{"Num Microchip",-15}|{"Vol. de pelo",-15}|{"Tipo de pelo",-15}|");
+            ManagerApp.ShowSeparator();
+            foreach (var catt in Cats)
+            {
+                catt.ShowInfo();
+            }
         }
 
         //-----------------------METODOS PARA PERROS --------------------------------
@@ -117,6 +141,12 @@ namespace PruebaC_sharp_EdgarCardona.models
 
             Console.Write("Fecha de Nacimiento (aaaa-mm-dd): ");
             DateOnly birthdate = DateOnly.Parse(Console.ReadLine() ?? "");
+            //Verificar que la fecha no sea de un año superior
+            while (DateTime.Now.Day - birthdate.Year < 0 || DateTime.Now.Day - birthdate.Month < 0 || DateTime.Now.Day - birthdate.Day < 0)
+            {
+                Console.WriteLine("La fecha de nacimiento no puede ser superior a la fecha actual.");
+                birthdate = DateOnly.Parse(Console.ReadLine() ?? "");
+            }
 
             Console.Write("Raza: ");
             string breed = Console.ReadLine() ?? "";
@@ -349,6 +379,29 @@ namespace PruebaC_sharp_EdgarCardona.models
 
         }
 
+        //Metodo para calcular la edad del perro usando el metodo GetAge()
+        public static void CalculateDogAgeFromUserInput()
+        {
+            Console.Clear();
+            Console.WriteLine("===Calcular edad del perro===");
+            // Buscar al perro por nombre
+            Console.Write("Ingrese nombre del perro: ");
+            string dogName = Console.ReadLine() ?? "";
+
+            // Buscar el perro en la lista
+            Dog? dog = Dogs.FirstOrDefault(c => c.GetDogName() == dogName);
+
+            if (dog != null)
+            {
+
+                Console.WriteLine($"La edad del perro {dog.GetDogName()} es: {dog.GetAge()} meses.");
+            }
+            else
+            {
+                Console.WriteLine("Perro no encontrado.");
+            }
+
+        }
         //-----------------------METODOS PARA GATOS --------------------------------
 
         //Metodo para guardar un gato
@@ -372,6 +425,12 @@ namespace PruebaC_sharp_EdgarCardona.models
 
             Console.Write("Fecha de Nacimiento (aaaa-mm-dd): ");
             DateOnly birthdate = DateOnly.Parse(Console.ReadLine() ?? "");
+            //Verificar que la fecha no sea de un año superior
+            while (DateTime.Now.Day - birthdate.Year < 0 || DateTime.Now.Day - birthdate.Month < 0 || DateTime.Now.Day - birthdate.Day < 0)
+            {
+                Console.WriteLine("La fecha de nacimiento no puede ser superior a la fecha actual.");
+                birthdate = DateOnly.Parse(Console.ReadLine() ?? "");
+            }
 
             Console.Write("Raza: ");
             string breed = Console.ReadLine() ?? "";

@@ -11,6 +11,7 @@ namespace PruebaC_sharp_EdgarCardona.models
         // Método principal que ejecuta el menú de la aplicación
         public static void Run()
         {
+
             bool exit = false; // Bandera para controlar la salida del bucle principal
             while (!exit)
             {
@@ -20,10 +21,11 @@ namespace PruebaC_sharp_EdgarCardona.models
                 ManagerApp.ShowHeader();
                 Console.WriteLine("1. Gestión de Perros");
                 Console.WriteLine("2. Gestión de Gatos");
-                Console.WriteLine("3. Mostrar todos los animales");
-                Console.WriteLine("4. Mostrar animales por tipo");
-                Console.WriteLine("5. Mostrar animales por id");
-                Console.WriteLine("6. Salir");
+                Console.WriteLine("3. Informacion basica de la clinica");
+                Console.WriteLine("4. Mostrar todos los animales");
+                Console.WriteLine("5. Mostrar animales por tipo");
+                Console.WriteLine("6. Mostrar animales por id");
+                Console.WriteLine("7. Salir");
                 Console.Write("\nSeleccione una opción: ");
 
                 // Leo la opción ingresada por el usuario y valida que sea un número
@@ -43,15 +45,18 @@ namespace PruebaC_sharp_EdgarCardona.models
                         ManageCats();
                         break;
                     case 3:
-                        ShowAllPatients();
+                        ClinicBasicReview();
                         break;
                     case 4:
-                        ShowAllPatientsByType();
+                        ShowAllPatients();
                         break;
                     case 5:
-                        ShowPatientById();
+                        ShowAllPatientsByType();
                         break;
                     case 6:
+                        ShowPatientById();
+                        break;
+                    case 7:
                         exit = true; // Salir del bucle principal
                         ManagerApp.ShowFooter();
                         break;
@@ -62,7 +67,6 @@ namespace PruebaC_sharp_EdgarCardona.models
 
                 if (!exit)
                 {
-                    // Solicito al usuario que presione una tecla para continuar si no se ha salido
                     Console.WriteLine("\nPresione cualquier tecla para continuar...");
                     Console.ReadKey();
                 }
@@ -82,7 +86,8 @@ namespace PruebaC_sharp_EdgarCardona.models
                 Console.WriteLine("3. Eliminar perros ");
                 Console.WriteLine("4. Motilar perros ");
                 Console.WriteLine("5. Castrar perros ");
-                Console.WriteLine("6. Regresar al menú principal");
+                Console.WriteLine("6. Calcular la edad de los perros ");
+                Console.WriteLine("7. Regresar al menú principal");
                 Console.Write("Seleccione una opción: ");
 
                 if (!int.TryParse(Console.ReadLine(), out int choice))
@@ -110,6 +115,9 @@ namespace PruebaC_sharp_EdgarCardona.models
                         CastrateDogFromUserInput();
                         break;
                     case 6:
+                        CalculateDogAgeFromUserInput();
+                        break; 
+                    case 7:
                         exit = true;
                         break;
                     default:
