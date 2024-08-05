@@ -45,9 +45,9 @@ namespace PruebaC_sharp_EdgarCardona.models
                     case 3:
                         ShowAllPatients();
                         break;
-                    // case 4:
-                    //     ShowAllPatientsByType();
-                    //     break;
+                    case 4:
+                        ShowAllPatientsByType();
+                        break;
                     case 5:
                         ShowPatientById();
                         break;

@@ -678,10 +678,8 @@ namespace PruebaC_sharp_EdgarCardona.models
                 Console.WriteLine($"{"Id",-10}|{"Nombre",-10}|{"Fecha Nac.",-12}|{"Raza",-16}|{"Color",-12}|{"Peso (Kg)",-10}|{"Reproductivo?",-15}|{"Temperamento",-15}|{"Num Microchip",-15}|{"Vol. de pelo",-15}|{"Tipo de pelo",-15}|");
                 ManagerApp.ShowSeparator();
 
-                foreach (var dogg in Dogs)
-                {
-                    dogg.ShowInfo();
-                }
+                dog.ShowInfo();
+
                 ManagerApp.ShowSeparator();
             }
             else if (cat != null)
@@ -690,11 +688,8 @@ namespace PruebaC_sharp_EdgarCardona.models
                 Console.WriteLine($"{"Id",-10}|{"Nombre",-10}|{"Fecha Nac.",-12}|{"Raza",-12}|{"Color",-12}|{"Peso (Kg)",-10}|{"Reproductivo?",-15}|{"Largo de pelo",-15}|");
                 Console.WriteLine(new string('-', 104));
 
-                foreach (var catt in Cats)
-                {
-                    catt.ShowInfo();
-                }
-                Console.WriteLine(new string('-', 104));
+                cat.ShowInfo();
+
             }
             else
             {
@@ -702,5 +697,43 @@ namespace PruebaC_sharp_EdgarCardona.models
             }
         }
 
+        //Metodo para mostrar los animales por su tipo Pero o Gato dependiendo el input del usuario
+        public static void ShowAllPatientsByType()
+        {
+            Console.Clear();
+            Console.Write("Ingrese el tipo de animal ('dog' o 'cat') --> ");
+            string type = Console.ReadLine() ?? "";
+
+            //Para mostrar perros
+            if (type.ToLower() == "dog")
+            {
+                Console.WriteLine("\n===Dogs===\n");
+                Console.WriteLine($"{"Id",-10}|{"Nombre",-10}|{"Fecha Nac.",-12}|{"Raza",-16}|{"Color",-12}|{"Peso (Kg)",-10}|{"Reproductivo?",-15}|{"Temperamento",-15}|{"Num Microchip",-15}|{"Vol. de pelo",-15}|{"Tipo de pelo",-15}|");
+                ManagerApp.ShowSeparator();
+
+                foreach (var dog in Dogs)
+                {
+                    dog.ShowInfo();
+                    ManagerApp.ShowSeparator();
+                }
+            }
+            //Para mostrar gatos
+            else if (type.ToLower() == "cat")
+            {
+                Console.WriteLine("\n===Cats===\n");
+                Console.WriteLine($"{"Id",-10}|{"Nombre",-10}|{"Fecha Nac.",-12}|{"Raza",-12}|{"Color",-12}|{"Peso (Kg)",-10}|{"Reproductivo?",-15}|{"Largo de pelo",-15}|");
+                Console.WriteLine(new string('-', 104));
+
+                foreach (var cat in Cats)
+                {
+                    cat.ShowInfo();
+                }
+                Console.WriteLine(new string('-', 104));
+            }
+            else
+            {
+                Console.WriteLine("Invalid type. Please enter 'dog' or 'cat'.");
+            }
+        }
     }
 }
