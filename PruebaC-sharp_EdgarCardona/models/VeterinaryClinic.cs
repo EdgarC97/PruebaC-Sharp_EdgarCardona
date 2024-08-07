@@ -7,28 +7,35 @@ namespace PruebaC_sharp_EdgarCardona.models
 {
     public class VeterinaryClinic
     {
-        public static string? Name = "Clinica Riwi";
-        public static string? Address = "Cl. 16 #55-129, Guayabal, Medellín, Guayabal, Medellín, Antioquia";
-
-        public static int idCounter = 0;
-        public static List<Dog> Dogs = new List<Dog>
-        {
-            new Dog(idCounter++, "Buddy", new DateOnly(2024, 1, 1), "Golden Retriever", "Golden", 3.5, true, "agresivo", "123456789", "Medium", "largo"),
-            new Dog(idCounter++, "Max", new DateOnly(2008, 1, 5), "Bulldog", "White", 4.0, true, "timido", "987654321", "corto", "Largo"),
-            new Dog(idCounter++, "Rex", new DateOnly(2006, 6, 10), "Doberman", "Black", 4.5, false, "normal", "123459876", "Medium", "corto")
-        };
-        public static List<Cat> Cats = new List<Cat>
-        {
-            new Cat(idCounter++, "Mia", new DateOnly(2005, 12, 15), "Siamese", "Black", 2.0, false, "largo"),
-            new Cat(idCounter++, "Simba", new DateOnly(2002, 8, 20), "Persian", "White", 1.5, true, "corto"),
-            new Cat(idCounter++, "Luna", new DateOnly(2000, 10, 10), "Maine Coon", "Black", 2.5, false, "sin pelo")
-        };
+        private static int idCounter = 0;
+        public string? Name = "Clinica Riwi";
+        public string? Address = "Cl. 16 #55-129, Guayabal, Medellín, Guayabal, Medellín, Antioquia";
+        public List<Dog> Dogs { get; private set; } = null!;
+        public List<Cat> Cats { get; private set; } = null!;
 
         //Constructor sencillo
         public VeterinaryClinic()
         {
-            Dogs = new List<Dog>();
-            Cats = new List<Cat>();
+            InitializeDefaultData();
+        }
+
+        private void InitializeDefaultData()
+        {
+            Dogs = new List<Dog>
+            {
+                new Dog(idCounter++, "Buddy", new DateOnly(2024, 1, 1), "Golden Retriever", "Golden", 3.5, true, "agresivo", "123456789", "Medium", "largo"),
+                new Dog(idCounter++, "Max", new DateOnly(2008, 1, 5), "Bulldog", "White", 4.0, true, "timido", "987654321", "corto", "Largo"),
+                new Dog(idCounter++, "Rex", new DateOnly(2006, 6, 10), "Doberman", "Black", 4.5, false, "normal", "123459876", "Medium", "corto")
+            };
+
+            Cats = new List<Cat>
+            {
+                new Cat(idCounter++, "Mia", new DateOnly(2005, 12, 15), "Siamese", "Black", 2.0, false, "largo"),
+                new Cat(idCounter++, "Simba", new DateOnly(2002, 8, 20), "Persian", "White", 1.5, true, "corto"),
+                new Cat(idCounter++, "Luna", new DateOnly(2000, 10, 10), "Maine Coon", "Black", 2.5, false, "sin pelo")
+            };
+
+
         }
 
         //Constructor de la clase completo
@@ -41,7 +48,7 @@ namespace PruebaC_sharp_EdgarCardona.models
         }
 
         //Mostrar informacion de la clinica usando el constructor completo
-        public static void ClinicBasicReview()
+        public void ClinicBasicReview()
         {
             Console.Clear();
             Console.WriteLine($"\nNombre: {Name}\nDirección: {Address}\n");
@@ -55,9 +62,9 @@ namespace PruebaC_sharp_EdgarCardona.models
             }
 
             // Lista de gatos de la clinica
-            Console.WriteLine("\n=== Gatos ===\n");
-            Console.WriteLine($"{"Id",-10}|{"Nombre",-10}|{"Fecha Nac.",-12}|{"Raza",-16}|{"Color",-12}|{"Peso (Kg)",-10}|{"Reproductivo?",-15}|{"Temperamento",-15}|{"Num Microchip",-15}|{"Vol. de pelo",-15}|{"Tipo de pelo",-15}|");
-            ManagerApp.ShowSeparator();
+            Console.WriteLine("\n===Cats===\n");
+            Console.WriteLine($"{"Id",-10}|{"Nombre",-10}|{"Fecha Nac.",-12}|{"Raza",-12}|{"Color",-12}|{"Peso (Kg)",-10}|{"Reproductivo?",-15}|{"Largo de pelo",-15}|");
+            Console.WriteLine(new string('-', 104));
             foreach (var catt in Cats)
             {
                 catt.ShowInfo();
@@ -67,13 +74,13 @@ namespace PruebaC_sharp_EdgarCardona.models
         //-----------------------METODOS PARA PERROS --------------------------------
 
         //Metodo para guardar un perro
-        public static void SaveDog(Dog newDog)
+        public void SaveDog(Dog newDog)
         {
             Dogs.Add(newDog);
         }
 
         //Metodo para eliminar un perro
-        public static void DeleteDog()
+        public void DeleteDog()
         {
             Console.Clear();
             Console.WriteLine("\n=== Eliminar Perro ===\n");
@@ -127,7 +134,7 @@ namespace PruebaC_sharp_EdgarCardona.models
         }
 
         //Metodo para agregar un perro a la lista de perros de acuerdo al input del usuario.
-        public static void AddDogFromUserInput()
+        public void AddDogFromUserInput()
         {
             Console.Clear();
             Console.WriteLine("\n=== Agregar perro ===");
@@ -140,12 +147,22 @@ namespace PruebaC_sharp_EdgarCardona.models
             string name = Console.ReadLine() ?? "";
 
             Console.Write("Fecha de Nacimiento (aaaa-mm-dd): ");
-            DateOnly birthdate = DateOnly.Parse(Console.ReadLine() ?? "");
-            //Verificar que la fecha no sea de un año superior
-            while (DateTime.Now.Day - birthdate.Year < 0 || DateTime.Now.Day - birthdate.Month < 0 || DateTime.Now.Day - birthdate.Day < 0)
+            DateOnly birthdate;
+            while (true)
             {
-                Console.WriteLine("La fecha de nacimiento no puede ser superior a la fecha actual.");
-                birthdate = DateOnly.Parse(Console.ReadLine() ?? "");
+                if (DateOnly.TryParse(Console.ReadLine(), out birthdate))
+                {
+                    if (birthdate <= DateOnly.FromDateTime(DateTime.Now))
+                    {
+                        break;
+                    }
+                    Console.WriteLine("La fecha de nacimiento no puede ser superior a la fecha actual.");
+                }
+                else
+                {
+                    Console.WriteLine("Formato de fecha inválido. Use el formato aaaa-mm-dd.");
+                }
+                Console.Write("Intente de nuevo (aaaa-mm-dd): ");
             }
 
             Console.Write("Raza: ");
@@ -188,7 +205,7 @@ namespace PruebaC_sharp_EdgarCardona.models
         }
 
         //Metodo para actualizar la informacion de los perros
-        public static void UpdateDog()
+        public void UpdateDog()
         {
             Console.Clear();
             Console.WriteLine("\n=== Editar Perro ===");
@@ -292,7 +309,7 @@ namespace PruebaC_sharp_EdgarCardona.models
         }
 
         //Metodo para obtener un tipo de temperamento valido segun permitidos en Dog
-        private static string GetValidTemperamentTypeFromUserInput()
+        private string GetValidTemperamentTypeFromUserInput()
         {
             while (true)
             {
@@ -312,7 +329,7 @@ namespace PruebaC_sharp_EdgarCardona.models
         }
 
         //Metodo para obtener un tipo de pelo valido segun permitidos en Dog
-        private static string GetValidCoatTypeFromUserInput()
+        private string GetValidCoatTypeFromUserInput()
         {
             while (true)
             {
@@ -332,7 +349,7 @@ namespace PruebaC_sharp_EdgarCardona.models
         }
 
         //Metodo para motilar perros usando el metodo DogHairDress
-        public static void DogHairDressFromUserInput()
+        public void DogHairDressFromUserInput()
         {
             Console.Clear();
             Console.WriteLine("===Motilar perro===");
@@ -356,7 +373,7 @@ namespace PruebaC_sharp_EdgarCardona.models
         }
 
         //Metodo para castrar al perro
-        public static void CastrateDogFromUserInput()
+        public void CastrateDogFromUserInput()
         {
             Console.Clear();
             Console.WriteLine("===Castrar al perro===");
@@ -380,7 +397,7 @@ namespace PruebaC_sharp_EdgarCardona.models
         }
 
         //Metodo para calcular la edad del perro usando el metodo GetAge()
-        public static void CalculateDogAgeFromUserInput()
+        public void CalculateDogAgeFromUserInput()
         {
             Console.Clear();
             Console.WriteLine("===Calcular edad del perro===");
@@ -405,13 +422,13 @@ namespace PruebaC_sharp_EdgarCardona.models
         //-----------------------METODOS PARA GATOS --------------------------------
 
         //Metodo para guardar un gato
-        public static void SaveCat(Cat newCat)
+        public void SaveCat(Cat newCat)
         {
             Cats.Add(newCat);
         }
 
         //Metodo para agregar un gato a la lista de gatos de acuerdo al input del usuario.
-        public static void AddCatFromUserInput()
+        public void AddCatFromUserInput()
         {
             Console.Clear();
             Console.WriteLine("\n=== Agregar gato ===");
@@ -463,7 +480,7 @@ namespace PruebaC_sharp_EdgarCardona.models
         }
 
         //Metodo para actualizar la informacion de los gatos
-        public static void UpdateCat()
+        public void UpdateCat()
         {
             Console.Clear();
             Console.WriteLine("\n=== Editar Gato ===");
@@ -546,7 +563,7 @@ namespace PruebaC_sharp_EdgarCardona.models
         }
 
         //Metodo para eliminar un gato
-        public static void DeleteCat()
+        public void DeleteCat()
         {
             Console.Clear();
             Console.WriteLine("===Eliminar gato===");
@@ -593,7 +610,7 @@ namespace PruebaC_sharp_EdgarCardona.models
         }
 
         //Metodo para obtener un tipo de pelo valido segun permitidos en Cat
-        private static string GetValidFurLenghtFromUserInput()
+        private string GetValidFurLenghtFromUserInput()
         {
             while (true)
             {
@@ -613,7 +630,7 @@ namespace PruebaC_sharp_EdgarCardona.models
         }
 
         //Metodo para motilar gatos usando el metodo CatHairDress
-        public static void CatHairDressFromUserInput()
+        public void CatHairDressFromUserInput()
         {
             Console.Clear();
             Console.WriteLine("===Motilar gato===");
@@ -637,7 +654,7 @@ namespace PruebaC_sharp_EdgarCardona.models
         }
 
         //Metodo para castrar al gato
-        public static void CastrateCatFromUserInput()
+        public void CastrateCatFromUserInput()
         {
             Console.Clear();
             Console.WriteLine("===Castrar al gato===");
@@ -663,7 +680,7 @@ namespace PruebaC_sharp_EdgarCardona.models
         //-----------------------METODOS PARA MOSTRAR PACIENTES --------------------------------
 
         //Metodo para mostrar todos los pacientes
-        public static void ShowAllPatients()
+        public void ShowAllPatients()
         {
             Console.Clear();
             //Mostrar todos los perros
@@ -691,7 +708,7 @@ namespace PruebaC_sharp_EdgarCardona.models
         }
 
         //Metodo para mostrar los animales
-        // public static void ShowAllPatientsByType()
+        // public  void ShowAllPatientsByType()
         // {
         //     if (type.ToLower() == "dog")
         //     {
@@ -716,7 +733,7 @@ namespace PruebaC_sharp_EdgarCardona.models
         // }
 
         //Metodo para mostrar paciente
-        public static void ShowPatientById()
+        public void ShowPatientById()
         {
             Console.Clear();
             // Buscar al animal por identificación
@@ -757,7 +774,7 @@ namespace PruebaC_sharp_EdgarCardona.models
         }
 
         //Metodo para mostrar los animales por su tipo Pero o Gato dependiendo el input del usuario
-        public static void ShowAllPatientsByType()
+        public void ShowAllPatientsByType()
         {
             Console.Clear();
             Console.Write("Ingrese el tipo de animal ('dog' o 'cat') --> ");

@@ -81,10 +81,10 @@ namespace PruebaC_sharp_EdgarCardona.models
         //Metodo para peluqueria : No se puede peluquear a un perro si el CoatType es corto.
         public void DogHairDress()
         {
-            if (CoatType!= "Corto")
+            if (CoatType!= "corto")
             {
                 Console.WriteLine($"{Name} ha sido motilado.");
-                CoatType = "Corto";
+                CoatType = "corto";
             }
             else
             {

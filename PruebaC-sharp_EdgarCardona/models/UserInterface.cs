@@ -5,11 +5,20 @@ using System.Threading.Tasks;
 
 namespace PruebaC_sharp_EdgarCardona.models
 {
-    public class UserInterface : VeterinaryClinic
+    public class UserInterface
     {
+        // Campo privado para almacenar la instancia de VeterinaryClinic
+        private VeterinaryClinic clinic;
+
+        // Constructor de UserInterface
+        public UserInterface()
+        {
+            // Inicializa una nueva instancia de VeterinaryClinic
+            clinic = new VeterinaryClinic();
+        }
 
         // Método principal que ejecuta el menú de la aplicación
-        public static void Run()
+        public void Run()
         {
 
             bool exit = false; // Bandera para controlar la salida del bucle principal
@@ -45,16 +54,16 @@ namespace PruebaC_sharp_EdgarCardona.models
                         ManageCats();
                         break;
                     case 3:
-                        ClinicBasicReview();
+                        clinic.ClinicBasicReview();
                         break;
                     case 4:
-                        ShowAllPatients();
+                        clinic.ShowAllPatients();
                         break;
                     case 5:
-                        ShowAllPatientsByType();
+                        clinic.ShowAllPatientsByType();
                         break;
                     case 6:
-                        ShowPatientById();
+                        clinic.ShowPatientById();
                         break;
                     case 7:
                         exit = true; // Salir del bucle principal
@@ -74,7 +83,7 @@ namespace PruebaC_sharp_EdgarCardona.models
         }
 
         //Metodo para gestionar los clientes
-        private static void ManageDogs()
+        private void ManageDogs()
         {
             bool exit = false;
             while (!exit)
@@ -100,23 +109,23 @@ namespace PruebaC_sharp_EdgarCardona.models
                 switch (choice)
                 {
                     case 1:
-                        AddDogFromUserInput();
+                        clinic.AddDogFromUserInput();
                         break;
                     case 2:
-                        UpdateDog();
+                        clinic.UpdateDog();
                         break;
                     case 3:
-                        DeleteDog();
+                        clinic.DeleteDog();
                         break;
                     case 4:
-                        DogHairDressFromUserInput();
+                        clinic.DogHairDressFromUserInput();
                         break;
                     case 5:
-                        CastrateDogFromUserInput();
+                        clinic.CastrateDogFromUserInput();
                         break;
                     case 6:
-                        CalculateDogAgeFromUserInput();
-                        break; 
+                        clinic.CalculateDogAgeFromUserInput();
+                        break;
                     case 7:
                         exit = true;
                         break;
@@ -134,7 +143,7 @@ namespace PruebaC_sharp_EdgarCardona.models
         }
 
         //Metodos para gestionar los conductores
-        private static void ManageCats()
+        private void ManageCats()
         {
             bool exit = false;
             while (!exit)
@@ -159,19 +168,19 @@ namespace PruebaC_sharp_EdgarCardona.models
                 switch (choice)
                 {
                     case 1:
-                        AddCatFromUserInput();
+                        clinic.AddCatFromUserInput();
                         break;
                     case 2:
-                        UpdateCat();
+                        clinic.UpdateCat();
                         break;
                     case 3:
-                        DeleteCat();
+                        clinic.DeleteCat();
                         break;
                     case 4:
-                        CatHairDressFromUserInput();
+                        clinic.CatHairDressFromUserInput();
                         break;
                     case 5:
-                        CastrateCatFromUserInput();
+                        clinic.CastrateCatFromUserInput();
                         break;
                     case 6:
                         exit = true;
